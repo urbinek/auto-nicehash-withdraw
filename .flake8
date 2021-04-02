@@ -1,7 +1,0 @@
-[flake8]
-ignore = E501
-exclude =.git,
-    __pycache__,
-    %userprofile%\.vscode,
-    %userprofile%\AppData
-max-complexity = 10
