@@ -1,0 +1,18 @@
+{
+    "source": {
+        "name": "Example API KEY",
+        "apiKeyCode": "kkkkkkkk-kkkk-kkkk-kkkk-kkkkkkkkkkkk",
+        "apiSecretKeyCode": "ssssssss-ssss-ssss-ssss-ssssssssssssssssssss-ssss-ssss-ssss-ssssssssssss",
+        "organizationID": "oooooooo-oooo-oooo-oooo-oooooooooooo"
+    },
+
+    "target": {
+        "withdrawalAddressId ": "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww",
+        "currency": "BTC"
+    },
+
+    "tresholds": {
+        "maximumBcFee": "0.00002876",
+        "currency": "BTC"
+    }
+}
