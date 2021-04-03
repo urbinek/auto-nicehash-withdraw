@@ -1,14 +1,17 @@
 #!/bin/sh
-
 # define global parms
+rrd="/usr/bin/rrdtool"
+
 # name of dataset, will be uset to generate db and graphs
 ds_name="bc_btc_fee"
 
 # directory to store graphs - DO NOT REMOVE $ds_name
-img_dir="/var/www/html/auto-nicehash-withdraw/fee-monitor"
+#img_dir="/var/www/html/auto-nicehash-withdraw/fee-monitor"
+img_dir="/www"
 
 # db directory - DO NOT REMOVE $ds_name
-db_dir="/var/www/html/auto-nicehash-withdraw/fee-monitor"
+# db_dir="/var/www/html/auto-nicehash-withdraw/fee-monitor"
+db_dir="/db"
 db="$db_dir/$ds_name.rrd"
 
 # define data collection command
@@ -18,7 +21,7 @@ data=`curl --silent https://api2.nicehash.com/main/api/v2/public/service/fee/inf
 if [ ! -e $db ]; then
     mkdir -p $db_dir
 
-    rrdtool create $db \
+    $rrd create $db \
         --step 60 \
         DS:$ds_name:GAUGE:120:0:1000 \
         RRA:MAX:0.5:1:44640
@@ -26,10 +29,10 @@ fi
 
 # fill db with data
 echo "Updating RRD $ds_name with value $data"
-rrdtool update $db N:$data
+$rrd update $db N:$data
 
 # generate graph from db
-mkdir -p "/var/www/html/auto-nicehash-withdraw/fee-monitor"
+mkdir -p "$img_dir"
 for period in day week month ; do
     
     case $period in
@@ -39,7 +42,7 @@ for period in day week month ; do
         *) x_axis=" "
     esac
 
-    rrdtool graph "$img_dir/$ds_name-$period".png \
+    $rrd graph "$img_dir/$ds_name-$period".png \
         -w 900 -h 150 -a PNG \
         --slope-mode \
         --disable-rrdtool-tag \
