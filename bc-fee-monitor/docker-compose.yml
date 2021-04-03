@@ -1,0 +1,37 @@
+version: '3.7'
+
+services:
+  server:
+    image: urbinek/bc-fee-monitor:latest
+
+    networks:
+      - overlay
+
+    volumes:
+      - type: volume
+        source: bc_fee_monitor_db
+        target: /db
+
+      - type: bind
+        source: /var/www/html/auto-nicehash-withdraw/fee-monitor
+        target: /www
+
+      - type: bind
+        read_only: true
+        source: /etc/localtime
+        target: /etc/localtime
+        
+    deploy:
+      mode: replicated
+      replicas: 1
+      restart_policy:
+        condition: any
+    stdin_open: true
+    tty: true
+
+networks:
+  overlay:
+
+volumes:
+  bc_fee_monitor_db:
+    external: true

@@ -8,11 +8,7 @@ config_json_path = './config.json'
 
 def main():
 
-    # get tresholds from local config
-    global config_json_path
-    with open(config_json_path) as config_json:
-        config = json.load(config_json)
-
+    config = load_config(path=config_json_path)
     treshold_value = config["tresholds"]["maximumBcFee"]
 
     # get fees from cloud
@@ -20,7 +16,7 @@ def main():
     fees = request.json()['withdrawal']['BITGO']['rules']['BTC']
 
     wallet_currency = fees['coin']
-    nh_fee = format_output(num=fees['intervals'][0]['element']['value'])
+    nh_fee = fees['intervals'][0]['element']['value']
     bc_fee = format_output(num=fees['intervals'][0]['element']['sndValue'])
 
     # calculate fee margin
@@ -50,6 +46,48 @@ def main():
     }
 
     print(f'{log}, <br>')
+
+
+def create_empty_config(path=None):
+    import os
+    import json
+
+    # Check for configuration file and creat it if not exist
+    if not os.path.isfile(path):
+        config_json = {
+            'source': {
+                'name': 'Example API KEY',
+                'apiKeyCode': 'kkkkkkkk-kkkk-kkkk-kkkk-kkkkkkkkkkkk',
+                'apiSecretKeyCode': 'ssssssss-ssss-ssss-ssss-ssssssssssssssssssss-ssss-ssss-ssss-ssssssssssss',
+                'organizationID': 'oooooooo-oooo-oooo-oooo-oooooooooooo'
+            },
+
+            'target': {
+                'withdrawalAddressId ': 'wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww',
+                'currency': 'BTC'
+            },
+
+            'tresholds': {
+                'maximumBcFee': '0.00002876',
+                'currency': 'BTC'
+            }
+        }
+
+        with open(path, 'w') as outfile:
+            json.dump(config_json, outfile, indent=4)
+        return True
+    else:
+        return None
+    
+
+def load_config(path=None):
+
+    create_empty_config(path=path)
+
+    with open(path) as config_json:
+        config = json.load(config_json)
+
+    return config
 
 
 def format_output(num, output_type='btc'):
