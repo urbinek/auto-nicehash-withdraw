@@ -1,0 +1,13 @@
+server {
+       listen 8321;
+       listen [::]:8321;
+
+       server_name btc-fee-monitor.local;
+
+       root /www;
+       index index.html;
+
+       location / {
+               try_files $uri $uri/ =404;
+       }
+}

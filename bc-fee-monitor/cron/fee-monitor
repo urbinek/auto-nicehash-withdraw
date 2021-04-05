@@ -1,2 +1,1 @@
-* * * * *  /bin/sh /rrd_fee-monitor.sh > /proc/1/fd/1 2>/proc/1/fd/2
-
+* * * * *  /bin/sh /usr/bin/rrd_fee-monitor.sh > /proc/1/fd/1 2>/proc/1/fd/2

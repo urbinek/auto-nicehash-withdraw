@@ -7,14 +7,13 @@ services:
     networks:
       - overlay
 
+    ports:
+      - "8321:8321/tcp"
+
     volumes:
       - type: volume
         source: bc_fee_monitor_db
         target: /db
-
-      - type: bind
-        source: /var/www/html/auto-nicehash-withdraw/fee-monitor
-        target: /www
 
       - type: bind
         read_only: true

@@ -1,6 +1,4 @@
-# Why
-
-This is completly redundand to have generation done in Docker, but my current sever is running on CentOS 7 wihout which cannot run rrdtool 1.7+
+# Quickies
 
 ## Build
 
