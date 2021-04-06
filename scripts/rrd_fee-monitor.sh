@@ -70,5 +70,5 @@ for period in day week month ; do
         LINE2:btc_fee#FFDD00:"Fee" \
         GPRINT:btc_fee:LAST:"Current\: %0.8lf BTC\t    " \
         GPRINT:btc_fee:MIN:"Min\: %0.8lf BTC\t     " \
-        GPRINT:btc_fee:MAX:"Max\: %0.8lf BTC\n"
+        GPRINT:btc_fee:MAX:"Max\: %0.8lf BTC\n" 
 done

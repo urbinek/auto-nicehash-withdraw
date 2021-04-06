@@ -16,10 +16,6 @@ services:
         target: /db
 
       - type: bind
-        source: /zfs/ssd/www/auto-nicehash-withdraw/fee-monitor/
-        target: /www
-
-      - type: bind
         read_only: true
         source: /etc/localtime
         target: /etc/localtime
@@ -29,6 +25,7 @@ services:
       replicas: 1
       restart_policy:
         condition: any
+
     stdin_open: true
     tty: true
 
