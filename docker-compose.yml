@@ -2,24 +2,28 @@ version: '3.7'
 
 services:
   server:
-    image: urbinek/bc-fee-monitor:latest
+    image: urbinek/auto-nicehash-withdraw:latest
 
     networks:
       - overlay
 
     ports:
-      - "8321:8321/tcp"
+      - "8321:80/tcp"
 
     volumes:
       - type: volume
-        source: bc_fee_monitor_db
+        source: auto-nicehash-withdraw_db
         target: /db
+
+      - type: bind
+        source: /zfs/ssd/www/auto-nicehash-withdraw/fee-monitor/
+        target: /www
 
       - type: bind
         read_only: true
         source: /etc/localtime
         target: /etc/localtime
-        
+
     deploy:
       mode: replicated
       replicas: 1
