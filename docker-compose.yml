@@ -33,5 +33,5 @@ networks:
   overlay:
 
 volumes:
-  bc_fee_monitor_db:
+  auto-nicehash-withdraw_db:
     external: true
