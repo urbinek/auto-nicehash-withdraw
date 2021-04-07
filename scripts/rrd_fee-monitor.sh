@@ -63,6 +63,7 @@ for period in day week month ; do
         --watermark "`date`" \
         --vertical-label 'BTC' \
         --units-exponent 0 \
+        --alt-y-grid \
         --left-axis-format "%.8lf" \
         --units-length 10 \
         $x_axis \
