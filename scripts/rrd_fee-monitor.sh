@@ -2,6 +2,9 @@
 # define global parms
 rrd="/usr/bin/rrdtool"
 
+# font fetched from fc-list
+font="Noto Sans"
+
 # name of dataset, will be uset to generate db and graphs
 ds_name="bc_btc_fee"
 
@@ -43,12 +46,12 @@ for period in day week month ; do
     esac
 
     $rrd graph "$img_dir/$ds_name-$period".png \
-        -w 900 -h 150 -a PNG \
+        -w 700 -h 150 -a PNG \
         --slope-mode \
         --disable-rrdtool-tag \
         --start end-1"$period" --end now \
-        --font DEFAULT:8:Courier \
-        --font TITLE:9:BOLD:Courier \
+        --font DEFAULT:11:"$font" \
+        --font TITLE:12:BOLD:"$font" \
         --color CANVAS#31373D \
         --color BACK#1F262D \
         --color FONT#FFFFFF \
@@ -67,8 +70,10 @@ for period in day week month ; do
         --right-axis-format "%.8lf" \
         --right-axis-label 'BTC' \
         DEF:btc_fee="$db":"$ds_name":LAST \
-        LINE2:btc_fee#FFDD00:"Fee" \
-        GPRINT:btc_fee:LAST:"Current\: %0.8lf BTC\t    " \
-        GPRINT:btc_fee:MIN:"Min\: %0.8lf BTC\t     " \
-        GPRINT:btc_fee:MAX:"Max\: %0.8lf BTC\n" 
+        LINE2:btc_fee#FFDD00:"  Fee" \
+        GPRINT:btc_fee:LAST:"Current\: %0.8lf BTC\t" \
+        GPRINT:btc_fee:MIN:"Min\: %0.8lf BTC\t" \
+        GPRINT:btc_fee:MAX:"Max\: %0.8lf BTC" \
+        TEXTALIGN:center
+
 done
