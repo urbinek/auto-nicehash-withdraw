@@ -1,7 +1,9 @@
 FROM    alpine:latest
 LABEL   maintainer=urbinek@gmail.com
 
-RUN     apk add --update rrdtool curl jq nginx python3 py-pip
+RUN     apk add --update --no-cache rrdtool curl jq nginx python3 py-pip msttcorefonts-installer fontconfig
+RUN     update-ms-fonts && fc-cache -f
+
 RUN     pip install --upgrade requests datetime 
 
 COPY    scripts/        /scripts/
