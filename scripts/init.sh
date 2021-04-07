@@ -14,5 +14,9 @@ nginx -q
 echo "Starng crond scheduling daemon..."
 crond -b -L /var/log/cron.log
 
+echo "Fetching initial logs..."
+/bin/sh            /scripts/rrd_fee-monitor.sh >> /var/log/rrd_monitor.log
+/usr/bin/python3   /scripts/auto-withdraw.py   >> /www/btc_exchange_fee.html
+
 echo "auto-withdraw logs:"
 tail -f /var/log/auto-withdraw.log
