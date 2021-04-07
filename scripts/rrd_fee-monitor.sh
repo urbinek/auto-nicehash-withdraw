@@ -46,7 +46,7 @@ for period in day week month ; do
     esac
 
     $rrd graph "$img_dir/$ds_name-$period".png \
-        -w 700 -h 150 -a PNG \
+        -w 750 -h 150 -a PNG \
         --slope-mode \
         --disable-rrdtool-tag \
         --start end-1"$period" --end now \
