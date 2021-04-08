@@ -2,15 +2,26 @@
 
 Simple python3 script for automated withdraws from NiceHash wallet
 
-## API permissions
+## API
 
+### API key requirements
+
+In order to provide scurity API key should be restricted with minimal access containing:
+
+- aaa
+- bbb
+- ccc
+
+### API rest-client
+
+API rest-client is fetched from <https://github.com/nicehash/rest-clients-demo>
 
 ## Build
 
 ```Bash
 cd auto-nicehash-withdraw/fee-monitor
 docker build --no-cache -t urbinek/bc-fee-monitor:latest .
-docker push urbinek/bc-fee-monitor:latest 
+docker push urbinek/bc-fee-monitor:latest
 ```
 
 ## Deploy
