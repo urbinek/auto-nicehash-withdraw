@@ -74,7 +74,7 @@ def get_fees(config):
         'profit': profit
     }
 
-    print(log)
+    print("{}, <br>".format(log))
 
 def get_default_path():
     if platform.system() == 'Linux':
