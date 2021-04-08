@@ -8,11 +8,11 @@ RUN     pip install --upgrade requests datetime
 
 COPY    scripts/      /scripts/
 COPY    www/          /www/
-COPY    nginx/        /etc/nginx/conf.d/
+COPY    nginx/        /etc/nginx/conf.d/  
 COPY    cron/         /etc/crontabs/
-COPY    config.json   /
-
+COPY    config.json   /etc/anw/
+COPY    init.sh       /
 
 EXPOSE  80/tcp
 
-CMD     /scripts/init.sh
+CMD     /init.sh
