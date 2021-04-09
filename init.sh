@@ -6,8 +6,6 @@ mkdir -p /var/log/anw
 mkdir -p /run/nginx 
 touch /var/log/rrd_monitor.log
 touch /var/log/cron.log
-touch /var/log/anw/auto-fee-logs.json
-ln -s /var/log/anw/auto-fee-logs.json /www/auto-fee-logs.json
 
 echo "Fetching initial data..."
 /bin/sh            /scripts/rrd_fee-monitor.sh  >> /var/log/rrd_monitor.log
