@@ -18,7 +18,7 @@ def main():
     
     fee = get_fees(config=config)
 
-    log_file_path = '{}/auto-fee-logs.json'.format(args.log_path)
+    log_file_path = '{}/auto-fee-logs.json'.format(args.www_log_path)
     log = "{}".format(json.dumps(fee))
 
     try: 
