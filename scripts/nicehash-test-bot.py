@@ -4,7 +4,7 @@ import nicehash
 
 
 # When ready, uncomment line bellow, to run your script on production environment
-# host = 'https://api2.nicehash.com'
+host = 'https://api2.nicehash.com'
 
 
 # How to create key, secret and where to get organisation id please check:

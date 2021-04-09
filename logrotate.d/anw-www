@@ -1,0 +1,12 @@
+/www/auto-fee-logs.json {
+    monthly
+    rotate 12
+    dateext
+    dateformat -%Y%m%d
+
+    copytruncate
+    missingok
+
+    compress
+    delaycompress
+}
