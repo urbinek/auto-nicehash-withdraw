@@ -1,4 +1,4 @@
-/www/auto-fee-logs.json {
+/var/log/anw/*.json {
     monthly
     rotate 12
     dateext
