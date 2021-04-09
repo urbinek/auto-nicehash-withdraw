@@ -1,2 +1,8 @@
-*       *       *       *       *       /bin/sh            /scripts/rrd_fee-monitor.sh             >> /var/log/rrd_monitor.log
-*/10    *       *       *       *       /usr/bin/python3   /scripts/auto-withdraw.py   | grep date >> /www/btc_exchange_fee.html
+# Run RRDTool graphin tool
+1,21,41    *       *       *       *       /bin/sh             /scripts/rrd_fee-monitor.sh         >> /var/log/rrd_monitor.log
+
+# Run python logging tool
+1,21,41    *       *       *       *       /usr/bin/python3    /scripts/auto-fee-logs.py --quiet   > /proc/1/fd/1
+
+# Rotate all logs every month
+0          0       1       *       *       /usr/sbin/logrotate  --force /etc/logrotate.conf        2> /proc/1/fd/1

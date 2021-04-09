@@ -1,17 +1,18 @@
 FROM    alpine:latest
 LABEL   maintainer=urbinek@gmail.com
 
-RUN     apk add --update --no-cache rrdtool curl jq nginx python3 py-pip font-noto fontconfig
+RUN     apk add --update --no-cache rrdtool curl jq nginx python3 py-pip font-noto fontconfig logrotate
 RUN     fc-cache --force --verbose
 
 RUN     pip install --upgrade requests datetime 
 
-COPY    scripts/      /scripts/
-COPY    www/          /www/
-COPY    nginx/        /etc/nginx/conf.d/  
-COPY    cron/         /etc/crontabs/
-COPY    config.json   /etc/anw/
-COPY    init.sh       /
+COPY    scripts/       /scripts/
+COPY    nginx/conf.d   /etc/nginx/conf.d/
+COPY    cron/          /etc/crontabs/
+COPY    config.json    /etc/anw/
+COPY    www/index.html /www/index.html
+COPY    logrotate.d/   /etc/logrotate.d/
+COPY    init.sh        /
 
 EXPOSE  80/tcp
 

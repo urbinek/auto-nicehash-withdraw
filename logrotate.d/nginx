@@ -1,0 +1,18 @@
+/var/log/nginx/*.log {
+    monthly
+    rotate 12
+    dateext
+    dateformat -%Y%m%d
+
+    copytruncate
+    missingok
+
+    compress
+    delaycompress
+
+    sharedscripts
+    postrotate
+        nginx -s reopen
+    endscript
+}
+
