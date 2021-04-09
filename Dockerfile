@@ -10,7 +10,7 @@ COPY    scripts/       /scripts/
 COPY    nginx/conf.d   /etc/nginx/conf.d/
 COPY    cron/          /etc/crontabs/
 COPY    config.json    /etc/anw/
-COPY    www/index.html /www/index.html
+COPY    www/index.html /etc/anw/index.html
 COPY    logrotate.d/   /etc/logrotate.d/
 COPY    init.sh        /
 

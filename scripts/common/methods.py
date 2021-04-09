@@ -10,12 +10,13 @@ import sys
 
 def get_arguments():
 
-    default_conf_path, default_log_path = get_default_path()
+    default_conf_path, default_log_path, default_www_log_path = get_default_path()
 
     # Declaration of argparse with return required values/arguments
     parser = argparse.ArgumentParser(description="Auto withdraw tool for NiceHash", add_help=True)
     parser.add_argument('--config', action='store', default='{}/config.json'.format(default_conf_path), required=False, help='Path to config file (default: {}/config.json)'.format(default_conf_path))
     parser.add_argument('--log-path', action='store', default='{}'.format(default_log_path), required=False, help='Path to log directory (default: {})'.format(default_log_path))
+    parser.add_argument('--www-log-path', action='store', default='{}'.format(default_www_log_path), required=False, help='Path to www log directory (default: {})'.format(default_www_log_path))
     parser.add_argument('--dry-run', action='store_true', default=False, required=False, help='Run script wihout any withdraws')
     parser.add_argument('--quiet', action='store_false', default=True, required=False, help='Supress some log output.')
     parser.add_argument('--show-config', action='store_true', default=False, required=False, help='Show config and quit.')
@@ -28,15 +29,17 @@ def get_default_path():
     if platform.system() == 'Linux':
         conf_path = '/etc/anw'
         log_path  = '/var/log/anw'
+        www_log_path = '/www'
     elif platform.system() == 'Windows':
-        conf_path = 'C:/ProgramData/anw'
-        log_path  = 'C:/ProgramData/anw/log'
+        conf_path     = 'C:/ProgramData/anw'
+        log_path      = 'C:/ProgramData/anw/log'
+        www_log_path  = 'C:/ProgramData/anw/www'
     elif platform.system() == 'Darwin':
         sys.exit("Lol, nope")
     else:
         sys.exit("Unsupported OS type.")
 
-    return conf_path, log_path
+    return conf_path, log_path, www_log_path
  
 
 def create_empty_config(config_path=None):
