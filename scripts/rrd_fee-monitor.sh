@@ -89,7 +89,7 @@ for period in day week month ; do
         GPRINT:btc_fee:MAX:"Max\: %0.8lf BTC" \
         TEXTALIGN:center > /dev/null 2>&1
 
-    if "$?" != "0" ; then
+    if [ "$?" != "0" ] ; then
         echo_date "[ERROR] An error occoured while running '$graph_command  [...]'"
     fi
 done
