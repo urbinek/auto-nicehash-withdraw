@@ -28,9 +28,9 @@ if [ ! -f $db ]; then
     db_creation_command="rrdtool create $db --step 1200 DS:$ds_name:GAUGE:1800:U:U RRA:MAX:0.5:1:2232"
 
     if $db_creation_command ; then
-        echo_date "$db_creation_command"
+        echo_date "$db_creation_command [...]"
     else
-        echo_date "[ERROR] An error occoured while running '$db_creation_command'"
+        echo_date "[ERROR] An error occoured while running '$db_creation_command [...]'"
     fi
 fi
 
@@ -38,9 +38,9 @@ fi
 db_update_command="rrdtool update $db N:$data"
 
 if $db_update_command ; then
-    echo_date "$db_update_command"
+    echo_date "$db_update_command [...]"
 else
-    echo_date "[ERROR] An error occoured while running '$db_update_command'"
+    echo_date "[ERROR] An error occoured while running '$db_update_command [...]'"
 fi
 
 # generate graph from db
@@ -54,8 +54,10 @@ for period in day week month ; do
         *) x_axis=" "
     esac
     
-    echo_date "Plotting graph "$img_dir/$ds_name-$period".svg..."
-    rrdtool graph "$img_dir/$ds_name-$period".svg \
+    graph_command="rrdtool graph "$img_dir/$ds_name-$period".svg"
+
+    echo_date "$graph_command [...]"
+    $graph_command \
         -w 600 -h 150 -a SVG \
         --slope-mode \
         --disable-rrdtool-tag \
@@ -85,5 +87,9 @@ for period in day week month ; do
         GPRINT:btc_fee:LAST:"Current\: %0.8lf BTC\t" \
         GPRINT:btc_fee:MIN:"Min\: %0.8lf BTC\t" \
         GPRINT:btc_fee:MAX:"Max\: %0.8lf BTC" \
-        TEXTALIGN:center
+        TEXTALIGN:center > /dev/null 2>&1
+
+    if "$?" != "0" ; then
+        echo_date "[ERROR] An error occoured while running '$graph_command  [...]'"
+    fi
 done
