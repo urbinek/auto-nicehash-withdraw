@@ -1,6 +1,7 @@
-#!/bin/sh
-# define global parms
-rrd="/usr/bin/rrdtool"
+#!/bin/bash
+
+# load common functions
+. /scripts/common/methods.sh
 
 # font fetched from fc-list
 font="Noto Sans"
@@ -21,37 +22,46 @@ db="$db_dir/$ds_name.rrd"
 data=`curl --silent https://api2.nicehash.com/main/api/v2/public/service/fee/info | jq '.withdrawal.BITGO.rules.BTC.intervals[0].element.sndValue' | awk -F "E" 'BEGIN{OFMT="%0.8f"} {print $1 * (10 ^ $2)}'`
 
 # create db if not existing
-if [ ! -e $db ]; then
+if [ ! -f $db ]; then
     mkdir -p $db_dir
 
-    $rrd create $db \
-        --step 60 \
-        DS:$ds_name:GAUGE:120:0:1000 \
-        RRA:MAX:0.5:1:44640
+    db_creation_command="rrdtool create $db --step 1200 DS:$ds_name:GAUGE:1800:U:U RRA:MAX:0.5:1:2232"
+
+    if $db_creation_command ; then
+        echo_date "$db_creation_command"
+    else
+        echo_date "[ERROR] An error occoured while running '$db_creation_command'"
+    fi
 fi
 
-# fill db with data
-echo "Updating RRD $ds_name with value $data"
-$rrd update $db N:$data
+# append data to db
+db_update_command="rrdtool update $db N:$data"
+
+if $db_update_command ; then
+    echo_date "$db_update_command"
+else
+    echo_date "[ERROR] An error occoured while running '$db_update_command'"
+fi
 
 # generate graph from db
 mkdir -p "$img_dir"
 for period in day week month ; do
-    
+
     case $period in
         "day")   x_axis="--x-grid MINUTE:10:HOUR:1:MINUTE:120:0:%R" ;;
         "week")  x_axis="--x-grid HOUR:12:DAY:1:DAY:1:0:%A" ;;
         "month") x_axis="--x-grid WEEK:1:WEEK:1:DAY:1:0:%d" ;;
         *) x_axis=" "
     esac
-
-    $rrd graph "$img_dir/$ds_name-$period".png \
-        -w 750 -h 150 -a PNG \
+    
+    echo_date "Plotting graph "$img_dir/$ds_name-$period".svg..."
+    rrdtool graph "$img_dir/$ds_name-$period".svg \
+        -w 600 -h 150 -a SVG \
         --slope-mode \
         --disable-rrdtool-tag \
         --start end-1"$period" --end now \
-        --font DEFAULT:11:"$font" \
-        --font TITLE:12:BOLD:"$font" \
+        --font DEFAULT:8:"$font" \
+        --font TITLE:10:BOLD:"$font" \
         --color CANVAS#31373D \
         --color BACK#1F262D \
         --color FONT#FFFFFF \
@@ -76,5 +86,4 @@ for period in day week month ; do
         GPRINT:btc_fee:MIN:"Min\: %0.8lf BTC\t" \
         GPRINT:btc_fee:MAX:"Max\: %0.8lf BTC" \
         TEXTALIGN:center
-
 done

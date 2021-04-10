@@ -1,7 +1,7 @@
 FROM    alpine:latest
 LABEL   maintainer=urbinek@gmail.com
 
-RUN     apk add --update --no-cache rrdtool curl jq nginx python3 py-pip font-noto fontconfig logrotate
+RUN     apk add --update --no-cache rrdtool curl jq nginx python3 py-pip font-noto fontconfig logrotate bash
 RUN     fc-cache --force --verbose
 
 RUN     pip install --upgrade requests datetime 

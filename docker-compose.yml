@@ -12,7 +12,7 @@ services:
 
     volumes:
       - type: volume
-        source: auto-nicehash-withdraw_db
+        source: anw_db
         target: /db
 
       - type: bind
@@ -33,5 +33,5 @@ networks:
   overlay:
 
 volumes:
-  auto-nicehash-withdraw_db:
+  anw_db:
     external: true
