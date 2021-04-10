@@ -8,5 +8,20 @@
     missingok
 
     compress
+    extension .tar.gz
+    delaycompress
+}
+
+/var/log/init.log {
+    weekly
+    rotate 4
+    dateext
+    dateformat -%Y%m%d
+
+    copytruncate
+    missingok
+
+    compress
+    extension .tar.gz
     delaycompress
 }

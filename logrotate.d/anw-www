@@ -8,5 +8,6 @@
     missingok
 
     compress
+    extension .tar.gz
     delaycompress
 }
