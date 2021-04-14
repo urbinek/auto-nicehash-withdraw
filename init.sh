@@ -1,11 +1,13 @@
 #!/bin/bash
-# load common functions
-. scripts/common/methods.sh
+
+function echo_date {
+    echo -e "`date '+%Y-%m-%d %H:%M:%S'`\t$0:\t$@"
+}
 
 script_log="/var/log/init.log"
 
 # Create/clear log gile
-if [ ! -f script_log ]; then
+if [ ! -f $script_log ]; then
     mkdir -p $(dirname $script_log)
     truncate -s 0 $script_log
 fi
@@ -27,7 +29,6 @@ touch /var/log/messages
 
 echo_date ""
 echo_date "Fetching initial data..."
-/bin/sh            /scripts/rrd_fee-monitor.sh  >> /var/log/rrd_monitor.log
 /usr/bin/python3   /scripts/auto-fee-logs.py
 
 echo_date ""
