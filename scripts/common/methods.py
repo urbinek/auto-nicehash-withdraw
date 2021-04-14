@@ -77,7 +77,7 @@ def create_empty_config(config_path=None):
 def load_config(config_path=None, quiet=True):
     if not os.path.isfile(config_path):
         if quiet:
-            print("[WARNING]: Config file '{}' is missing. Creating new from config template, please update it for full functionality.".format(config_path))
+            print("[WARNING]:\t'{}' is missing. Creating new config from template, please update it for full functionality.".format(config_path))
         config_dir = os.path.dirname(os.path.abspath(config_path))
         Path(config_dir).mkdir(parents=True, exist_ok=True)
         create_empty_config(config_path=config_path)
@@ -116,7 +116,7 @@ def format_output(num, output_type='btc'):
 def create_dir(path=None, quiet=True):
     if not os.path.isdir(path):
         if quiet:
-            print("[WARNING]: '{}' directory is missing. Creating...".format(path))
+            print("[WARNING]:\t'{}' directory is missing. Creating...".format(path))
         Path(path).mkdir(parents=True, exist_ok=True)
     return path
 
