@@ -1,8 +1,5 @@
-# Run RRDTool graphin tool
-1,21,41    *       *       *       *       /bin/sh             /scripts/rrd_fee-monitor.sh         2>&1 > /proc/1/fd/1
-
 # Run python logging tool
-1,21,41    *       *       *       *       /usr/bin/python3    /scripts/auto-fee-logs.py --quiet   2>&1 > /proc/1/fd/1
+5,25,45    *       *       *       *       /usr/bin/python3    /scripts/auto-fee-logs.py --quiet   2>&1 > /proc/1/fd/1
 
 # Rotate all logs every month (this is not working as I would like, only stderr can be redirected?)
 0          0       1       *       *       /usr/sbin/logrotate  --force /etc/logrotate.conf        2>   > /proc/1/fd/1
